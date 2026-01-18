@@ -1,0 +1,131 @@
+Remove default browser spacing
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden; /* Prevents accidental horizontal scrolling */
+}
+
+#root{
+  
+}
+/* Rest of your existing code... */
+.hero-container {
+  min-height: 100vh; /* Changed from height to min-height for better mobile scaling */
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2070');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4); /* Darkens the image for readability */
+}
+
+/* Content Layout */
+.content-wrapper {
+  position: relative;
+  z-index: 2;
+  width: 90%;
+  max-width: 1000px;
+  text-align: center;
+}
+
+.header-section h1 {
+  color: white;
+  font-size: 3.5rem;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+}
+
+.header-section p {
+  color: #f0f0f0;
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+}
+
+/* The Glassmorphism Card */
+.search-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px); /* This creates the frosted glass look */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 30px;
+  border-radius: 24px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+/* Inputs and Labels */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.input-group label {
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.input-group input {
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  padding: 12px 15px;
+  border-radius: 12px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+  background: white;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.4);
+}
+
+/* Search Button */
+.search-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.3s;
+  align-self: flex-end; /* Aligns with input boxes */
+  height: 45px;
+}
+
+.search-btn:hover {
+  background: #0056b3;
+  transform: translateY(-2px);
+}
+
+/* Responsive for Mobile */
+@media (max-width: 768px) {
+  .search-card {
+    grid-template-columns: 1fr;
+  }
+  .header-section h1 {
+    font-size: 2.5rem;
+  }
+}
+
+
