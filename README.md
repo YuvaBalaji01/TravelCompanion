@@ -40,24 +40,42 @@ Demo Video: https://drive.google.com/file/d/1fLP-Y5kXUzR9CfcpACc4KJFfda1QwNrX/vi
 
 TravelCompanion/
 │
+
 ├── Backend/
+
 │ ├── src/
+
 │ │ ├── config/db.js
+
 │ │ ├── controllers/
+
 │ │ ├── middleware/
+
 │ │ ├── routes/
+
 │ │ └── server.js
+
 │ ├── package.json
+
 │ └── .env (not included in repo)
+
 │
 └── Frontend/
+
 ├── src/
+
 │ ├── components/
+
 │ ├── services/api.js
+
 │ ├── App.jsx
+
 │ ├── main.jsx
+
 │ └── index.css
+
 ├── package.json
+
 └── vite.config.js
 
 
