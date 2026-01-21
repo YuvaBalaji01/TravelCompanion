@@ -1,1 +1,1 @@
-<video src="video.mp4" width="600" autoplay loop muted></video>
+[![Watch the video](thumbnail.png)](https://www.youtube.com/watch?v=VIDEO_ID)
