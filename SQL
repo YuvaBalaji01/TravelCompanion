@@ -1,0 +1,28 @@
+CREATE DATABASE travelCompanion;
+
+USE travelCompanion;
+
+CREATE TABLE trips (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    destination VARCHAR(200) NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE users (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(200) NOT NULL,
+    email VARCHAR(200) NOT NULL,
+    password VARCHAR(200) NOT NULL,
+    bio VARCHAR(255) NOT NULL
+);
+
+
+INSERT INTO users (name, email, password, bio)
+VALUES ('Test User', 'test@example.com', 'test123', 'I love travelling');
+SELECT u.name, u.email, t.destination, t.start_date, t.end_date
+FROM trips t
+JOIN users u ON u.id = t.user_id;
+
