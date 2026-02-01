@@ -100,8 +100,8 @@ TravelCompanion/
 
 ### **Database**
 - MySQL 
-- Managed from phpMyAdmin  
 
----
+
+
 
 
