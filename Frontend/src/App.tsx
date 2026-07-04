@@ -5,8 +5,7 @@ import Register from "./components/Register";
 import Results from "./components/Result";
 import Profile from "./components/Profile";
 
-
-function App() {
+function App(): React.JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
