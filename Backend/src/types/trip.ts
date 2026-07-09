@@ -6,6 +6,7 @@ export interface Trip extends RowDataPacket {
   destination: string;
   start_date: string;
   end_date: string;
+  description: string | null;
 }
 
 export interface SearchTripResult extends RowDataPacket {
@@ -17,8 +18,16 @@ export interface SearchTripResult extends RowDataPacket {
   end_date: string;
 }
 
-export interface AddTripRequest {
+export interface CreateTripRequest {
   destination: string;
   start_date: string;
   end_date: string;
+  description?: string;
+}
+
+export interface UpdateTripRequest {
+  destination: string;
+  start_date: string;
+  end_date: string;
+  description?: string;
 }

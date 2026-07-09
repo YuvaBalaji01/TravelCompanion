@@ -2,22 +2,32 @@ import { Request, Response } from "express";
 
 import db from "../config/db";
 
-import type { Trip, SearchTripResult, AddTripRequest } from "../types/trip";
+import type {
+  Trip,
+  SearchTripResult,
+  CreateTripRequest,
+  UpdateTripRequest,
+} from "../types/trip";
 
 interface JwtUser {
   id: number;
   email: string;
 }
 
-// ================= ADD TRIP =================
+// ================= CREATE TRIP =================
 
 export const addTrip = async (
-  req: Request<{}, {}, AddTripRequest>,
+  req: Request<{}, {}, CreateTripRequest>,
   res: Response
 ): Promise<void> => {
   const user = req.user as JwtUser;
 
-  const { destination, start_date, end_date } = req.body;
+  const {
+    destination,
+    start_date,
+    end_date,
+    description,
+  } = req.body;
 
   if (!destination || !start_date || !end_date) {
     res.status(400).json({
@@ -28,18 +38,21 @@ export const addTrip = async (
 
   try {
     await db.query(
-      `INSERT INTO trips
-      (user_id, destination, start_date, end_date)
-      VALUES (?, ?, ?, ?)`,
+      `
+      INSERT INTO trips
+      (user_id, destination, start_date, end_date, description)
+      VALUES (?, ?, ?, ?, ?)
+      `,
       [
         user.id,
         destination,
         start_date,
         end_date,
+        description ?? null,
       ]
     );
 
-    res.json({
+    res.status(201).json({
       message: "Trip added successfully",
     });
 
@@ -63,7 +76,12 @@ export const getMyTrips = async (
 
   try {
     const [rows] = await db.query(
-      "SELECT * FROM trips WHERE user_id = ?",
+      `
+      SELECT *
+      FROM trips
+      WHERE user_id = ?
+      ORDER BY start_date ASC
+      `,
       [user.id]
     );
 
@@ -80,10 +98,74 @@ export const getMyTrips = async (
   }
 };
 
+// ================= UPDATE TRIP =================
+
+export const updateTrip = async (
+  req: Request<{ id: string }, {}, UpdateTripRequest>,
+  res: Response
+): Promise<void> => {
+
+  const user = req.user as JwtUser;
+
+  const tripId = Number(req.params.id);
+
+  const {
+    destination,
+    start_date,
+    end_date,
+    description,
+  } = req.body;
+
+  if (!destination || !start_date || !end_date) {
+    res.status(400).json({
+      message: "All fields are required",
+    });
+    return;
+  }
+
+  try {
+
+    const [result] = await db.query(
+      `
+      UPDATE trips
+      SET
+        destination = ?,
+        start_date = ?,
+        end_date = ?,
+        description = ?
+      WHERE
+        id = ?
+        AND user_id = ?
+      `,
+      [
+        destination,
+        start_date,
+        end_date,
+        description ?? null,
+        tripId,
+        user.id,
+      ]
+    );
+
+    res.json({
+      message: "Trip updated successfully",
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      message: "Server error",
+    });
+
+  }
+};
+
 // ================= SEARCH TRIPS =================
 
 export const searchTrips = async (
-  req: Request<{}, {}, AddTripRequest>,
+  req: Request<{}, {}, CreateTripRequest>,
   res: Response
 ): Promise<void> => {
 
@@ -103,6 +185,7 @@ export const searchTrips = async (
   }
 
   try {
+
     const [rows] = await db.query(
       `
       SELECT
@@ -113,10 +196,11 @@ export const searchTrips = async (
         t.start_date,
         t.end_date
       FROM trips t
-      JOIN users u
+      INNER JOIN users u
         ON u.id = t.user_id
-      WHERE t.destination = ?
-        AND t.user_id != ?
+      WHERE
+        t.destination = ?
+        AND t.user_id <> ?
         AND t.start_date <= ?
         AND t.end_date >= ?
       `,
@@ -133,10 +217,12 @@ export const searchTrips = async (
     res.json(results);
 
   } catch (error) {
+
     console.error(error);
 
     res.status(500).json({
       message: "Server error",
     });
+
   }
 };

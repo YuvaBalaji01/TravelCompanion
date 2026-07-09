@@ -4,6 +4,7 @@ export interface Trip {
   start_date: string;
   end_date: string;
   user_id: number;
+  description?: string | null;
 }
 
 export interface SearchResult {
@@ -15,4 +16,11 @@ export interface SearchResult {
   destination: string;
   start_date: string;
   end_date: string;
+}
+
+export interface CreateTripRequest {
+  destination: string;
+  start_date: string;
+  end_date: string;
+  description?: string;
 }

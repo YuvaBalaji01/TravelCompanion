@@ -26,7 +26,7 @@ const Login = (): React.JSX.Element => {
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
       alert("Login successful!");
-      navigate("/");
+      navigate("/dashboard");
     } catch (error) {
       const err = error as AxiosError<ErrorResponse>;
 

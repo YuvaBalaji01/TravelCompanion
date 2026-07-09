@@ -9,10 +9,11 @@ export interface RegisterRequest {
   name: string;
   email: string;
   password: string;
-  bio: string;
+  bio?: string;
 }
 
 export interface LoginResponse {
+  message: string;
   token: string;
   user: User;
 }
