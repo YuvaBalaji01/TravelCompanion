@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import type { AxiosError } from "axios";
+import { useNavigate } from "react-router-dom";
 
-import "../index.css";
+import "../styles/Dashboard.css";
 
 import TripForm from "./TripForm";
 import TripCard from "./TripCard";
@@ -9,7 +10,9 @@ import TripCard from "./TripCard";
 import {
   addTrip,
   getMyTrips,
-  updateTrip
+  updateTrip,
+  deleteTrip,
+  findCompanions,
 } from "../services/tripService";
 
 import type {
@@ -24,6 +27,7 @@ const Dashboard = (): React.JSX.Element => {
   const [loading, setLoading] = useState<boolean>(true);
   const [editingTrip, setEditingTrip] =
     useState<Trip | null>(null);
+  const navigate = useNavigate();
 
   const loadTrips = async (): Promise<void> => {
     try {
@@ -60,15 +64,38 @@ const Dashboard = (): React.JSX.Element => {
     }
   };
 
- 
 
-  const handleDeleteTrip = (id: number): void => {
-    console.log("Delete Trip:", id);
-   
+
+  const handleDeleteTrip = async (id: number): Promise<void> => {
+    try {
+      await deleteTrip(id);
+
+      await loadTrips();
+    } catch (error) {
+      const err = error as AxiosError<ErrorResponse>;
+
+      alert(
+        err.response?.data.message ??
+        "Unable to delete trip"
+      );
+    }
+
   };
 
-  const handleFindCompanion = (trip: Trip): void => {
-    console.log("Find Companion:", trip);
+  const handleFindCompanion = async (id: number): Promise<void> => {
+
+    try {
+      const res = await findCompanions(id);
+
+      localStorage.setItem("results", JSON.stringify(res));
+
+      navigate("/results");
+    } catch (error) {
+      const err = error as AxiosError<ErrorResponse>;
+
+      alert(err.response?.data?.message ?? "Please login first");
+    }
+
   };
 
   const handleEditTrip = (
@@ -76,7 +103,7 @@ const Dashboard = (): React.JSX.Element => {
   ): void => {
 
     setEditingTrip(trip);
-    
+
 
   };
 
@@ -98,24 +125,35 @@ const Dashboard = (): React.JSX.Element => {
       await loadTrips();
 
     } catch (error) {
-  const err = error as AxiosError<ErrorResponse>;
+      const err = error as AxiosError<ErrorResponse>;
 
-  console.log(err.response);
-  console.log(err.response?.data);
-  console.log(err.response?.status);
 
-  alert(
-    err.response?.data?.message ??
-    "Unable to update trip"
-  );
-}
+      alert(
+        err.response?.data?.message ??
+        "Unable to update trip"
+      );
+    }
 
+  };
+
+  const handleLogout = (): void => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    navigate("/");
   };
 
   return (
     <div className="dashboard">
 
       <h1>My Dashboard</h1>
+
+      <button
+        className="logout-btn"
+        onClick={handleLogout}
+      >
+        Logout
+      </button>
 
       <TripForm
         initialData={editingTrip ?? undefined}
@@ -140,15 +178,17 @@ const Dashboard = (): React.JSX.Element => {
       ) : trips.length === 0 ? (
         <p>No trips added yet.</p>
       ) : (
-        trips.map((trip) => (
-          <TripCard
-            key={trip.id}
-            trip={trip}
-            onEdit={handleEditTrip}
-            onDelete={handleDeleteTrip}
-            onFindCompanion={handleFindCompanion}
-          />
-        ))
+        <div className="trips-list">
+          {trips.map((trip) => (
+            <TripCard
+              key={trip.id}
+              trip={trip}
+              onEdit={handleEditTrip}
+              onDelete={handleDeleteTrip}
+              onFindCompanion={handleFindCompanion}
+            />
+          ))}
+        </div>
       )}
     </div>
   );

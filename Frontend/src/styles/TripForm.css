@@ -1,0 +1,127 @@
+/* ===================================================================
+   TripForm — the "ticket counter"
+   Self-contained: defines its own tokens so the component still
+   looks right even if rendered outside Dashboard.
+   =================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap');
+
+:root {
+  --ink: #101b30;
+  --paper: #f3efe4;
+  --paper-dim: #e8e2d1;
+  --stamp: #d9622b;
+  --stamp-dark: #b74e1f;
+  --radius: 14px;
+  --shadow-card: 0 10px 30px rgba(11, 20, 36, 0.18);
+}
+
+.trip-form {
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  padding: 26px 28px;
+  display: grid;
+  gap: 18px;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.trip-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.trip-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.trip-form__field--full {
+  grid-column: 1 / -1;
+}
+
+.trip-form__field label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6d7488;
+}
+
+.trip-form input,
+.trip-form textarea {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  padding: 12px 14px;
+  border: 1px solid var(--paper-dim);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  width: 100%;
+}
+
+.trip-form textarea {
+  min-height: 84px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.trip-form input::placeholder,
+.trip-form textarea::placeholder {
+  color: #a9a08c;
+}
+
+.trip-form input:focus,
+.trip-form textarea:focus {
+  outline: none;
+  border-color: var(--stamp);
+  box-shadow: 0 0 0 3px rgba(217, 98, 43, 0.15);
+}
+
+.trip-form__submit {
+  justify-self: start;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  color: #fff;
+  background: var(--stamp);
+  border: none;
+  border-radius: 999px;
+  padding: 12px 30px;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.trip-form__submit:hover {
+  background: var(--stamp-dark);
+}
+
+.trip-form__submit:active {
+  transform: translateY(1px);
+}
+
+.trip-form__submit:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 560px) {
+  .trip-form__row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .trip-form__submit {
+    transition: none;
+  }
+}

@@ -1,10 +1,12 @@
 import type { Trip } from "../types/trip";
 
+import "../styles/TripCard.css";
+
 interface TripCardProps {
   trip: Trip;
   onEdit: (trip: Trip) => void;
   onDelete: (id: number) => void;
-  onFindCompanion: (trip: Trip) => void;
+  onFindCompanion: (id: number) => void;
 }
 
 const TripCard = ({
@@ -18,47 +20,52 @@ const TripCard = ({
 
     <div className="trip-card">
 
-      <h3>{trip.destination}</h3>
+      <div className="trip-card__main">
 
-      <p>
+        <span className="route">
+          {trip.start_date}
+          {" → "}
+          {trip.end_date}
+        </span>
 
-        {trip.start_date}
+        <h3 className="title">{trip.destination}</h3>
 
-        {" → "}
+        <p className="meta">
+          {trip.description || "No description"}
+        </p>
 
-        {trip.end_date}
+      </div>
 
-      </p>
+      <div className="trip-card__stub">
 
-      <p>
+        <button
+          className="find"
+          onClick={() =>
+            onFindCompanion(trip.id)
+          }
+        >
+          Find Companion
+        </button>
 
-        {trip.description || "No description"}
+        <button
+          className="edit"
+          onClick={() =>
+            onEdit(trip)
+          }
+        >
+          Edit
+        </button>
 
-      </p>
+        <button
+          className="delete"
+          onClick={() =>
+            onDelete(trip.id)
+          }
+        >
+          Delete
+        </button>
 
-      <button
-        onClick={() =>
-          onFindCompanion(trip)
-        }
-      >
-        Find Companion
-      </button>
-
-      <button
-        onClick={() =>
-          onEdit(trip)
-        }
-      >
-        Edit
-      </button>
-
-      <button
-        onClick={() =>
-          onDelete(trip.id)
-        }
-      >
-        Delete
-      </button>
+      </div>
 
     </div>
 

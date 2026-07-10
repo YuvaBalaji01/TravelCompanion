@@ -1,0 +1,168 @@
+/* ===================================================================
+   TripCard — the "boarding pass"
+   Self-contained: defines its own tokens so the component still
+   looks right even if rendered outside Dashboard.
+   =================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap');
+
+:root {
+  --ink: #101b30;
+  --paper: #f3efe4;
+  --paper-dim: #e8e2d1;
+  --stub-line: #c9c1a8;
+  --sky-deep: #0b1424;
+  --stamp: #d9622b;
+  --stamp-dark: #b74e1f;
+  --teal: #2f7a6c;
+  --danger: #b7442f;
+  --radius: 14px;
+  --shadow-card: 0 10px 30px rgba(11, 20, 36, 0.18);
+}
+
+.trip-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 130px;
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  margin-bottom: 22px;
+  overflow: hidden;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* perforated notch where the ticket "tears" */
+.trip-card::before,
+.trip-card::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 122px;
+  width: 20px;
+  height: 20px;
+  background: var(--sky-deep);
+  border-radius: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+.trip-card::after {
+  margin-right: -20px;
+}
+
+.trip-card__main {
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.trip-card__main .route {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  color: var(--teal);
+  letter-spacing: 0.04em;
+}
+
+.trip-card__main .title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.trip-card__main .meta {
+  font-size: 13px;
+  color: #5b6273;
+  margin: 0;
+  overflow-wrap: break-word;
+}
+
+.trip-card__stub {
+  position: relative;
+  background: var(--paper-dim);
+  border-left: 2px dashed var(--stub-line);
+  padding: 22px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.trip-card__stub button {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 9px 10px;
+  border-radius: 7px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.trip-card__stub button:active {
+  transform: translateY(1px);
+}
+
+.trip-card__stub button:focus-visible {
+  outline: 2px solid var(--stamp);
+  outline-offset: 2px;
+}
+
+.trip-card__stub button.find {
+  background: var(--stamp);
+  color: #fff;
+}
+.trip-card__stub button.find:hover {
+  background: var(--stamp-dark);
+}
+
+.trip-card__stub button.edit {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--stub-line);
+}
+.trip-card__stub button.edit:hover {
+  background: #fff;
+}
+
+.trip-card__stub button.delete {
+  background: transparent;
+  color: var(--danger);
+  border-color: var(--danger);
+}
+.trip-card__stub button.delete:hover {
+  background: rgba(183, 68, 47, 0.08);
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 560px) {
+  .trip-card {
+    grid-template-columns: 1fr;
+  }
+  .trip-card__stub {
+    border-left: none;
+    border-top: 2px dashed var(--stub-line);
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .trip-card__stub button {
+    flex: 1 1 auto;
+  }
+  .trip-card::before,
+  .trip-card::after {
+    display: none;
+  }
+}
+
+/* ---------- reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .trip-card__stub button {
+    transition: none;
+  }
+}

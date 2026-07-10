@@ -5,6 +5,8 @@ import type {
   Trip,
 } from "../types/trip";
 
+import "../styles/TripForm.css";
+
 interface TripFormProps {
   initialData?: Trip;
   buttonText: string;
@@ -57,44 +59,62 @@ const TripForm = ({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="trip-form" onSubmit={handleSubmit}>
 
-      <input
-        placeholder="Destination"
-        value={destination}
-        onChange={(e) =>
-          setDestination(e.target.value)
-        }
-      />
+      <div className="trip-form__field trip-form__field--full">
+        <label htmlFor="destination">Destination</label>
+        <input
+          id="destination"
+          placeholder="Where to?"
+          value={destination}
+          onChange={(e) =>
+            setDestination(e.target.value)
+          }
+        />
+      </div>
 
-      <input
-        type="date"
-        value={startDate}
-        onChange={(e) =>
-          setStartDate(e.target.value)
-        }
-      />
+      <div className="trip-form__row">
 
-      <input
-        type="date"
-        value={endDate}
-        onChange={(e) =>
-          setEndDate(e.target.value)
-        }
-      />
+        <div className="trip-form__field">
+          <label htmlFor="start-date">Depart</label>
+          <input
+            id="start-date"
+            type="date"
+            value={startDate}
+            onChange={(e) =>
+              setStartDate(e.target.value)
+            }
+          />
+        </div>
 
-      <textarea
-        placeholder="Description"
-        value={description}
-        onChange={(e) =>
-          setDescription(e.target.value)
-        }
-      />
+        <div className="trip-form__field">
+          <label htmlFor="end-date">Return</label>
+          <input
+            id="end-date"
+            type="date"
+            value={endDate}
+            onChange={(e) =>
+              setEndDate(e.target.value)
+            }
+          />
+        </div>
 
-      <button type="submit">
+      </div>
 
+      <div className="trip-form__field trip-form__field--full">
+        <label htmlFor="description">Description</label>
+        <textarea
+          id="description"
+          placeholder="Notes for a potential companion..."
+          value={description}
+          onChange={(e) =>
+            setDescription(e.target.value)
+          }
+        />
+      </div>
+
+      <button type="submit" className="trip-form__submit">
         {buttonText}
-
       </button>
 
     </form>

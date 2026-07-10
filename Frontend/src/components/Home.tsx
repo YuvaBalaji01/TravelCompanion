@@ -54,7 +54,7 @@ const Home = (): React.JSX.Element => {
           {user ? (
             <button
               className="nav-btn"
-              onClick={() => navigate("/profile")}
+              onClick={() => navigate("/dashboard")}
             >
               {user.name}
             </button>

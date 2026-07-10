@@ -162,6 +162,38 @@ export const updateTrip = async (
   }
 };
 
+//-- Delete trip ---
+
+export const deleteTrip = async (
+  req: Request<{ id: string }>,
+  res: Response
+): Promise<void> => {
+  const user = req.user as JwtUser;
+  const tripId = Number(req.params.id);
+
+  try {
+    await db.query(
+      `
+      DELETE FROM trips
+      WHERE id = ?
+      AND user_id = ?
+      `,
+      [tripId, user.id]
+    );
+
+    res.json({
+      message: "Trip deleted successfully",
+    });
+
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: "Server error",
+    });
+  }
+};
+
 // ================= SEARCH TRIPS =================
 
 export const searchTrips = async (
@@ -225,4 +257,81 @@ export const searchTrips = async (
     });
 
   }
+};
+
+//--find Companion ---
+
+export const findCompanions = async (
+  req: Request<{ id: string }>,
+  res: Response
+): Promise<void> => {
+
+  const user = req.user as JwtUser;
+  const tripId = Number(req.params.id);
+
+  try {
+
+    // Fetch the selected trip
+    const [tripRows] = await db.query(
+      `
+      SELECT *
+      FROM trips
+      WHERE id = ?
+      AND user_id = ?
+      `,
+      [tripId, user.id]
+    );
+
+    const trips = tripRows as Trip[];
+
+    if (trips.length === 0) {
+      res.status(404).json({
+        message: "Trip not found",
+      });
+      return;
+    }
+
+    const trip = trips[0];
+
+    // Find matching companions
+    const [rows] = await db.query(
+      `
+      SELECT
+        u.id,
+        u.name,
+        u.email,
+        u.bio,
+        t.start_date,
+        t.end_date
+      FROM trips t
+      INNER JOIN users u
+        ON u.id = t.user_id
+      WHERE
+        t.destination = ?
+        AND t.user_id <> ?
+        AND t.start_date <= ?
+        AND t.end_date >= ?
+      `,
+      [
+        trip.destination,
+        user.id,
+        trip.end_date,
+        trip.start_date,
+      ]
+    );
+
+    const results = rows as SearchTripResult[];
+
+    res.json(results);
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      message: "Server error",
+    });
+
+  }
+
 };
