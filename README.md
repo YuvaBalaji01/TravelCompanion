@@ -12,6 +12,13 @@ https://travel-companion-au20l74ma-yuvabalaji01s-projects.vercel.app/
 
 
 ---
+## Demo  login
+
+email : test@123
+pass : 123456
+
+
+---
 
 # 🚀 Features
 
