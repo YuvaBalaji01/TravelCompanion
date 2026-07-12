@@ -6,6 +6,7 @@ import "./src/config/db";
 
 import authRoutes from "./src/routes/authRoutes";
 import tripRoutes from "./src/routes/tripRoutes";
+import requestRoutes from "./src/routes/requestRoutes";
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/trips", tripRoutes);
+app.use("/api/requests", requestRoutes);
 
 const PORT = process.env.PORT || 5000;
 

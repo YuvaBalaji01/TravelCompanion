@@ -5,6 +5,11 @@ export interface RegisterRequest {
   bio?: string;
 }
 
+export interface JwtUser {
+  id: number;
+  email: string;
+}
+
 export interface LoginRequest {
   email: string;
   password: string;

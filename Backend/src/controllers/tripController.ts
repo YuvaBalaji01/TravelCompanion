@@ -221,12 +221,14 @@ export const searchTrips = async (
     const [rows] = await db.query(
       `
       SELECT
-        u.id,
-        u.name,
-        u.email,
-        u.bio,
-        t.start_date,
-        t.end_date
+          t.id AS trip_id,
+          u.id AS user_id,
+          u.name,
+          u.email,
+          u.bio,
+          t.destination,
+          t.start_date,
+          t.end_date
       FROM trips t
       INNER JOIN users u
         ON u.id = t.user_id
@@ -258,6 +260,7 @@ export const searchTrips = async (
 
   }
 };
+
 
 //--find Companion ---
 
@@ -297,12 +300,14 @@ export const findCompanions = async (
     const [rows] = await db.query(
       `
       SELECT
-        u.id,
-        u.name,
-        u.email,
-        u.bio,
-        t.start_date,
-        t.end_date
+      t.id AS trip_id,
+      u.id AS user_id,
+      u.name,
+      u.email,
+      u.bio,
+      t.destination,
+      t.start_date,
+      t.end_date
       FROM trips t
       INNER JOIN users u
         ON u.id = t.user_id

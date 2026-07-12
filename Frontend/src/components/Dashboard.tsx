@@ -155,6 +155,15 @@ const Dashboard = (): React.JSX.Element => {
         Logout
       </button>
 
+      <button
+        className="btn"
+        onClick={() => navigate("/requests")}
+      >
+        Requests
+      </button>
+
+
+
       <TripForm
         initialData={editingTrip ?? undefined}
         buttonText={

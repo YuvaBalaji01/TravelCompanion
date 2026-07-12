@@ -5,6 +5,7 @@ import Register from "./components/Register";
 import Results from "./components/Result";
 import Profile from "./components/Profile";
 import Dashboard from "./components/Dashboard";
+import Requests from "./components/Requests";
 
 function App(): React.JSX.Element {
   return (
@@ -16,6 +17,7 @@ function App(): React.JSX.Element {
         <Route path="/register" element={<Register />} />
         <Route path="/results" element={<Results />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/requests"element={<Requests />}/>
       </Routes>
     </BrowserRouter>
   );

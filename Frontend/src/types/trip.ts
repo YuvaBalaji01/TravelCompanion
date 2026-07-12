@@ -8,14 +8,17 @@ export interface Trip {
 }
 
 export interface SearchResult {
-  id: number;
-  name: string;
-  email: string;
-  bio?: string;
+    trip_id: number;
+    user_id: number;
 
-  destination: string;
-  start_date: string;
-  end_date: string;
+    name: string;
+    email: string;
+    bio: string;
+
+    destination: string;
+
+    start_date: string;
+    end_date: string;
 }
 
 export interface CreateTripRequest {
