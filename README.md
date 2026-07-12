@@ -6,10 +6,10 @@ Users can register, authenticate securely, create travel plans, and search for f
 
 ---
 
-## 🎥 Demo
+## Live at
 
-📹 **Demo Video:**  
-https://drive.google.com/file/d/1fLP-Y5kXUzR9CfcpACc4KJFfda1QwNrX/view?usp=sharing
+https://travel-companion-au20l74ma-yuvabalaji01s-projects.vercel.app/
+
 
 ---
 
