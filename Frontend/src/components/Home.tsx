@@ -88,7 +88,28 @@ const Home = (): React.JSX.Element => {
           </p>
         </div>
 
-        
+        <div className="search-container-v2">
+          <div className="glass-form">
+            <div className="input-box">
+              <label>Where to?</label>
+              <input type="text" placeholder="Search Destination" onChange={(e) => setDestination(e.target.value)} />
+            </div>
+            <div className="v-divider"></div>
+            <div className="input-box">
+              <label>Arrival</label>
+              <input type="date" onChange={(e) => setStartDate(e.target.value)} />
+            </div>
+            <div className="v-divider"></div>
+            <div className="input-box">
+              <label>Departure</label>
+              <input type="date" onChange={(e) => setEndDate(e.target.value)} />
+            </div>
+            <button className="glow-btn" onClick={handleSearch}>
+              Search Now</button>
+          </div>
+        </div>
+
+
       </header>
 
       <section className="scroll-hint">

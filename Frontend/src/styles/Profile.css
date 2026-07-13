@@ -1,0 +1,81 @@
+/* Profile Page */
+
+/* Profile Page Container */
+.profile-root {
+  min-height: 100vh;
+  background: linear-gradient(120deg, #0f0f1f, #1a1d33);
+  padding-top: 60px;
+  display: flex;
+  justify-content: center;
+  color: white;
+}
+
+/* Profile Card */
+.profile-card {
+  background: rgba(255,255,255,0.10);
+  backdrop-filter: blur(20px);
+  padding: 40px;
+  width: 400px;
+  border-radius: 18px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+/* Avatar */
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  background: #3b82f6;
+  border-radius: 50%;
+  font-size: 50px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 25px;
+}
+
+/* Name */
+.profile-card h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+/* Email */
+.profile-email {
+  font-size: 16px;
+  opacity: 0.8;
+  margin-bottom: 20px;
+}
+
+/* Bio */
+.profile-bio {
+  font-size: 15px;
+  opacity: 0.9;
+  margin-bottom: 25px;
+}
+
+/* Buttons */
+.profile-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.edit-btn {
+  background: #10b981;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+.logout-btn {
+  background: #ef4444;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+}

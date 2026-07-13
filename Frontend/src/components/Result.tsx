@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { AxiosError } from "axios";
 
-import "../index.css";
+import "../styles/result.css";
 
 import type { SearchResult } from "../types/trip";
 import type { ErrorResponse } from "../types/auth";

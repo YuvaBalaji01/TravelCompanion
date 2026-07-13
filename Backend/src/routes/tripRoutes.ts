@@ -5,7 +5,7 @@ import authMiddleware from "../middleware/authMiddleware";
 import {
   addTrip,
   getMyTrips,
-  //searchTrips,
+  searchTrips,
   updateTrip,
   deleteTrip,
   findCompanions,
@@ -15,7 +15,7 @@ const router = Router();
 
 router.post("/add", authMiddleware, addTrip);
 router.get("/my", authMiddleware, getMyTrips);
-// router.post("/search", authMiddleware, searchTrips);
+router.post("/search", authMiddleware, searchTrips);
 router.put("/:id", authMiddleware, updateTrip);
 router.delete("/:id", authMiddleware, deleteTrip);
 router.get("/:id/matches", authMiddleware, findCompanions);
