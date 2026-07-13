@@ -8,7 +8,7 @@ Users can register, authenticate securely, create travel plans, and search for f
 
 ## Live at
 
-https://travel-companion-au20l74ma-yuvabalaji01s-projects.vercel.app/
+https://travel-companion-topaz.vercel.app/
 
 
 ---
