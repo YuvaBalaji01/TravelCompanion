@@ -42,3 +42,28 @@ export const getOutgoingRequests = async (): Promise<
 
   return res.data;
 };
+
+export const acceptRequest = async (
+  id: number
+): Promise<{ message: string }> => {
+  const res = await API.put<{ message: string }>(
+    `/requests/${id}/accept`
+  );
+
+  return res.data;
+};
+
+export const rejectRequest = async (
+  id: number
+): Promise<{ message: string }> => {
+  const res = await API.put<{ message: string }>(
+    `/requests/${id}/reject`
+  );
+
+  return res.data;
+};
+
+export const getConnections = async () => {
+  const res = await API.get("/requests/connections");
+  return res.data;
+};

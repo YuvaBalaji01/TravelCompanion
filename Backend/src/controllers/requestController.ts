@@ -202,3 +202,186 @@ export const getOutgoingRequests = async (
   }
 
 };
+
+export const acceptRequest = async (
+  req: Request<{ id: string }>,
+  res: Response
+): Promise<void> => {
+
+  const user = req.user as JwtUser;
+  const requestId = Number(req.params.id);
+
+  try {
+
+    // Find the request
+    const [rows] = await db.query(
+      `
+      SELECT *
+      FROM connection_requests
+      WHERE
+        id = ?
+        AND receiver_id = ?
+        AND status = 'PENDING'
+      `,
+      [requestId, user.id]
+    );
+
+    const requests = rows as any[];
+
+    if (requests.length === 0) {
+      res.status(404).json({
+        message: "Request not found"
+      });
+      return;
+    }
+
+    const request = requests[0];
+
+    // Update request status
+    await db.query(
+      `
+      UPDATE connection_requests
+      SET status = 'ACCEPTED'
+      WHERE id = ?
+      `,
+      [requestId]
+    );
+
+    // Save connection
+    await db.query(
+      `
+      INSERT INTO connections
+      (user1_id, user2_id)
+      VALUES (?, ?)
+      `,
+      [
+        request.sender_id,
+        request.receiver_id
+      ]
+    );
+
+    res.json({
+      message: "Request accepted"
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      message: "Server error"
+    });
+
+  }
+};
+
+export const rejectRequest = async (
+  req: Request<{ id: string }>,
+  res: Response
+): Promise<void> => {
+
+  const user = req.user as JwtUser;
+  const requestId = Number(req.params.id);
+
+  try {
+
+    const [rows] = await db.query(
+      `
+      SELECT *
+      FROM connection_requests
+      WHERE
+        id = ?
+        AND receiver_id = ?
+        AND status = 'PENDING'
+      `,
+      [requestId, user.id]
+    );
+
+    const requests = rows as any[];
+
+    if (requests.length === 0) {
+      res.status(404).json({
+        message: "Request not found"
+      });
+      return;
+    }
+
+    await db.query(
+      `
+      UPDATE connection_requests
+      SET status = 'REJECTED'
+      WHERE id = ?
+      `,
+      [requestId]
+    );
+
+    res.json({
+      message: "Request rejected"
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      message: "Server error"
+    });
+
+  }
+
+};
+
+export const getConnections = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+
+  const user = req.user as JwtUser;
+
+  try {
+
+    const [rows] = await db.query(
+      `
+      SELECT
+          c.id,
+          c.created_at,
+
+          u.id,
+          u.name,
+          u.email,
+          u.bio
+
+      FROM connections c
+
+      INNER JOIN users u
+      ON u.id =
+      CASE
+          WHEN c.user1_id = ?
+          THEN c.user2_id
+          ELSE c.user1_id
+      END
+
+      WHERE
+          c.user1_id = ?
+          OR c.user2_id = ?
+      `,
+      [
+        user.id,
+        user.id,
+        user.id
+      ]
+    );
+
+    res.json(rows);
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      message: "Server error"
+    });
+
+  }
+
+};

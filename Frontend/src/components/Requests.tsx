@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import {
   getIncomingRequests,
   getOutgoingRequests,
+  acceptRequest,
+  rejectRequest,
 } from "../services/requestService";
 
 import type {
@@ -52,23 +54,6 @@ const Requests = (): React.JSX.Element => {
     }
   };
 
-  const handleAccept = async (
-    requestId: number
-  ): Promise<void> => {
-    console.log("Accept", requestId);
-
-    // TODO:
-    // await acceptRequest(requestId);
-    // loadRequests();
-  };
-
-  const handleReject = async (
-    requestId: number
-  ): Promise<void> => {
-    console.log("Reject", requestId);
-
-    // TODO
-  };
 
   const handleWithdraw = async (
     requestId: number
@@ -76,6 +61,18 @@ const Requests = (): React.JSX.Element => {
     console.log("Withdraw", requestId);
 
     // TODO
+  };
+
+  //Request
+
+  const handleAccept = async (id: number) => {
+    await acceptRequest(id);
+    await loadRequests();
+  };
+
+  const handleReject = async (id: number) => {
+    await rejectRequest(id);
+    await loadRequests();
   };
 
   return (
@@ -192,7 +189,7 @@ const Requests = (): React.JSX.Element => {
                 </div>
 
                 {request.status ===
-                "PENDING" ? (
+                  "PENDING" ? (
 
                   <div
                     style={{
@@ -203,22 +200,14 @@ const Requests = (): React.JSX.Element => {
 
                     <button
                       className="connect-btn"
-                      onClick={() =>
-                        handleAccept(
-                          request.id
-                        )
-                      }
+                      onClick={() => handleAccept(request.id)}
                     >
                       Accept
                     </button>
 
                     <button
                       className="connect-btn"
-                      onClick={() =>
-                        handleReject(
-                          request.id
-                        )
-                      }
+                      onClick={() => handleReject(request.id)}
                     >
                       Reject
                     </button>
@@ -321,7 +310,7 @@ const Requests = (): React.JSX.Element => {
                 </div>
 
                 {request.status ===
-                "PENDING" ? (
+                  "PENDING" ? (
 
                   <button
                     className="connect-btn"
