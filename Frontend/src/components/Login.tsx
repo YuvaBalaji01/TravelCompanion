@@ -8,6 +8,7 @@ import "../styles/login.css";
 const Login = (): React.JSX.Element => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -15,6 +16,8 @@ const Login = (): React.JSX.Element => {
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     e.preventDefault();
+
+    setIsLoading(true);
 
     try {
       const res = await API.post<LoginResponse>("/auth/login", {
@@ -31,6 +34,8 @@ const Login = (): React.JSX.Element => {
       const err = error as AxiosError<ErrorResponse>;
 
       alert(err.response?.data?.message ?? "Login failed");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -51,6 +56,7 @@ const Login = (): React.JSX.Element => {
             placeholder="you@example.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            disabled={isLoading}
           />
         </div>
 
@@ -62,11 +68,16 @@ const Login = (): React.JSX.Element => {
             placeholder="••••••••"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            disabled={isLoading}
           />
         </div>
 
-        <button type="submit" className="auth-submit">
-          Login
+        <button type="submit" className="auth-submit" disabled={isLoading}>
+          {isLoading ? (
+            <span className="auth-spinner" aria-hidden="true" />
+          ) : (
+            "Login"
+          )}
         </button>
 
         <p className="auth-switch">
