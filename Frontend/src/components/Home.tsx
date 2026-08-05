@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import type { AxiosError } from "axios";
 
 import API from "../services/api";
-import "../index.css";
+import "../styles/Home.css";
 
 import type { User } from "../types/user";
 import type { Trip } from "../types/trip";

@@ -1,0 +1,329 @@
+/* ==========================================================================
+   TravelCompanion — Home
+   Clean, simple, modern landing page styling.
+   ========================================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap");
+
+body{
+  margin: 0px;
+}
+
+:root {
+  --bg: #fbfaf8;
+  --surface: #ffffff;
+  --ink: #1c1f2b;
+  --muted: #6b7280;
+  --border: #e7e5e0;
+  --accent: #5b5bf0;
+  --accent-2: #a855f7;
+
+  --font-display: "Poppins", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* -------------------------------------------------------------------- */
+/* Root                                                                  */
+/* -------------------------------------------------------------------- */
+
+.home-root {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background: var(--bg);
+  font-family: var(--font-body);
+  color: var(--ink);
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.25;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.blob-1 {
+  width: 420px;
+  height: 420px;
+  top: -120px;
+  left: -100px;
+  background: var(--accent);
+}
+
+.blob-2 {
+  width: 380px;
+  height: 380px;
+  top: 200px;
+  right: -110px;
+  background: var(--accent-2);
+}
+
+/* -------------------------------------------------------------------- */
+/* Nav                                                                   */
+/* -------------------------------------------------------------------- */
+
+.hero-v2 {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1.5rem 5rem;
+}
+
+.mini-nav {
+  width: 100%;
+  max-width: 1080px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.25rem 3.5rem;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.logo span {
+  color: var(--accent);
+}
+
+.nav-btn {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #fff;
+  background: var(--ink);
+  border: none;
+  padding: 0.65rem 1.4rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.nav-btn:hover {
+  background: var(--accent);
+  transform: translateY(-1px);
+}
+
+.nav-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* -------------------------------------------------------------------- */
+/* Hero copy                                                             */
+/* -------------------------------------------------------------------- */
+
+.hero-main-content {
+  max-width: 720px;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--accent);
+  background: rgba(91, 91, 240, 0.1);
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  margin-bottom: 1.5rem;
+}
+
+.hero-main-content h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0 0 1.25rem;
+}
+
+.gradient-text {
+  background: linear-gradient(100deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-main-content p {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--muted);
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* -------------------------------------------------------------------- */
+/* Search                                                                */
+/* -------------------------------------------------------------------- */
+
+.search-container-v2 {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.glass-form {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  max-width: 880px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 20px 40px -20px rgba(28, 31, 43, 0.15);
+}
+
+.input-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.1rem 1.4rem;
+  text-align: left;
+}
+
+.input-box label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.input-box input {
+  border: none;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  font-weight: 500;
+  color: var(--ink);
+  padding: 0;
+  width: 100%;
+}
+
+.input-box input::placeholder {
+  color: #b0b0b8;
+}
+
+.input-box input:focus {
+  outline: none;
+}
+
+.input-box:focus-within label {
+  color: var(--accent);
+}
+
+.v-divider {
+  width: 1px;
+  background: var(--border);
+  margin: 0.75rem 0;
+}
+
+.glow-btn {
+  flex-shrink: 0;
+  width: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border: none;
+  border-radius: 0 16px 16px 0;
+  cursor: pointer;
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.glow-btn:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.glow-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* -------------------------------------------------------------------- */
+/* Scroll hint                                                           */
+/* -------------------------------------------------------------------- */
+
+.scroll-hint {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0 1.5rem 4rem;
+  text-align: center;
+}
+
+.scroll-hint p {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.wheel {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.5rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--surface);
+}
+
+/* -------------------------------------------------------------------- */
+/* Responsive                                                            */
+/* -------------------------------------------------------------------- */
+
+@media (max-width: 820px) {
+  .glass-form {
+    flex-direction: column;
+  }
+
+  .v-divider {
+    width: auto;
+    height: 1px;
+    margin: 0 1.4rem;
+  }
+
+  .glow-btn {
+    width: 100%;
+    border-radius: 0 0 16px 16px;
+    padding: 1rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .mini-nav {
+    padding-bottom: 2.5rem;
+  }
+
+  .hero-main-content {
+    margin-bottom: 2rem;
+  }
+}
