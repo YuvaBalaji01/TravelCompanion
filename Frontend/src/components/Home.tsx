@@ -70,7 +70,7 @@ const Home = (): React.JSX.Element => {
 
         <div className="hero-main-content">
           <div className="badge">
-            ✨ New: Group Treks in Nepal
+            ✨ News : Group Treks in Nepal
           </div>
 
           <h1>
